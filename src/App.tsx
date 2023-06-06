@@ -63,6 +63,13 @@ import dataProvider from "@refinedev/simple-rest";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { MuiInferencer } from "@refinedev/inferencer/mui";
 
+import { BlogPostList } from "pages/blog-posts/list";
+import { BlogPostEdit } from "pages/blog-posts/edit";
+import { BlogPostShow } from "pages/blog-posts/show";
+import { BlogPostCreate } from "pages/blog-posts/create";
+
+
+
 const App: React.FC = () => {
     return (
         <ThemeProvider theme={RefineThemes.Blue}>
@@ -83,12 +90,15 @@ const App: React.FC = () => {
                                 show: "/blog-posts/show/:id",
                                 create: "/blog-posts/create",
                                 edit: "/blog-posts/edit/:id",
+                                meta: {
+                                  canDelete: true,
+                              },
                             },
                         ]}
                         options={{
-                            syncWithLocation: true,
-                            warnWhenUnsavedChanges: true,
-                        }}
+                          syncWithLocation: true,
+                          warnWhenUnsavedChanges: true,
+                      }}
                     >
                         <Routes>
                             <Route
@@ -100,18 +110,19 @@ const App: React.FC = () => {
                             >
                                 <Route index element={<NavigateToResource resource="blog_posts" />} />
                                 <Route path="blog-posts">
-                                    <Route index element={<MuiInferencer />} />
+                                    <Route index element={<BlogPostList />} />
+                                    {/* <Route index element={<MuiInferencer />} /> */}
                                     <Route
                                         path="show/:id"
-                                        element={<MuiInferencer />}
+                                        element={<BlogPostShow />}
                                     />
-                                    <Route
+                                     <Route
                                         path="edit/:id"
-                                        element={<MuiInferencer />}
+                                        element={<BlogPostEdit />}
                                     />
-                                    <Route
+                                     <Route
                                         path="create"
-                                        element={<MuiInferencer />}
+                                        element={<BlogPostCreate />}
                                     />
                                 </Route>
                                 <Route path="*" element={<ErrorComponent />} />
